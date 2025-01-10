@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ecommerce;
+
+option go_package = "product-service/protogen";
+
+// Product Service
+service ProductService {
+  rpc AddProduct (AddProductRequest) returns (AddProductResponse);
+  rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+  rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+}
+
+message AddProductRequest {
+  string name = 1;
+  string description = 2;
+  float price = 3;
+}
+
+message AddProductResponse {
+  string product_id = 1;
+  string status = 2;
+}
+
+message GetProductRequest {
+  string product_id = 1;
+}
+
+message GetProductResponse {
+  string product_id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+}
+
+message ListProductsRequest {
+  int32 page_number = 1;
+  int32 limit = 2;
+  bool has_more = 3;
+}
+
+message ListProductsResponse {
+  repeated GetProductResponse products = 1;
+}
+
+// protoc --go_out=. --go-grpc_out=. --go-grpc_opt=module=product-service --go_opt=module=product-service ./proto/*.proto
