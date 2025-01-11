@@ -2,14 +2,16 @@
 
 services:
   rabbitmq:
-    image: rabbitmq:latest
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
     ports:
       - "5672:5672"
+      - "5671:5671" # AMQPS port
       - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: "admin"
-      RABBITMQ_DEFAULT_PASS: "admin"
 
+  # redis
   redis:
     image: redis:latest
     ports:
