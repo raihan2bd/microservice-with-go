@@ -13,8 +13,9 @@ type AppConfig struct {
 	PG_DB *gorm.DB
 	// RabbitMQ   *amqp.Connection
 	// Redis      *redis.Client
-	HTTPServer *gin.Engine
-	GRPCServer *grpc.Server
+	HTTPServer      *gin.Engine
+	GRPCServer      *grpc.Server
+	OrderGRPCClient *grpc.ClientConn
 }
 
 // LoadConfig initializes and returns AppConfig
@@ -48,7 +49,8 @@ func LoadConfig() (*AppConfig, error) {
 		PG_DB: pgDB,
 		// RabbitMQ:   rabbitMQ,
 		// Redis:      redisClient,
-		HTTPServer: httpServer,
-		GRPCServer: grpcServer,
+		HTTPServer:      httpServer,
+		GRPCServer:      grpcServer,
+		OrderGRPCClient: nil,
 	}, nil
 }
